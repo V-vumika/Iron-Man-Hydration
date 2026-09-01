@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    background: transparent;
+    -webkit-app-region: drag;
+  }
+
+  .card {
+    height: 100vh;
+    width: 100vw;
+    border-radius: 14px;
+    padding: 16px 18px;
+
+    background: linear-gradient(
+      145deg,
+      #1a1a1a 0%,
+      #2b0000 100%
+    );
+
+    border: 1.5px solid #ffcc00;
+
+    box-shadow:
+      0 0 20px rgba(255, 0, 0, 0.35),
+      0 0 4px rgba(255, 204, 0, 0.6) inset;
+
+    color: #f5f5f5;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Arc Reactor Glow */
+  .reactor {
+    position: absolute;
+    top: -30px;
+    right: -30px;
+
+    width: 90px;
+    height: 90px;
+
+    border-radius: 50%;
+
+    background: radial-gradient(
+      circle,
+      #baf7ff 0%,
+      #29a9e0 40%,
+      transparent 70%
+    );
+
+    opacity: 0.5;
+    filter: blur(2px);
+
+    pointer-events: none;
+  }
+
+  /* Iron Man Image */
+  .hero-image {
+    width: 100%;
+    height: 120px;
+
+    object-fit: cover;
+
+    border-radius: 10px;
+
+    margin-bottom: 10px;
+
+    display: block;
+
+    -webkit-app-region: no-drag;
+  }
+
+  /* JARVIS Title */
+  .title {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    color: #ffcc00;
+
+    letter-spacing: 0.5px;
+
+    -webkit-app-region: no-drag;
+  }
+
+  /* Red Dot */
+  .title .dot {
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: #ff2b2b;
+
+    box-shadow: 0 0 8px #ff2b2b;
+  }
+
+  /* Hydration Message */
+  .message {
+    font-size: 13.5px;
+
+    line-height: 1.45;
+
+    color: #eaeaea;
+
+    margin-top: 6px;
+
+    -webkit-app-region: no-drag;
+  }
+
+  .message b {
+    color: #ffcc00;
+  }
+
+  /* Buttons Container */
+  .actions {
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 10px;
+
+    -webkit-app-region: no-drag;
+  }
+
+  /* All Buttons */
+  button {
+    flex: 1;
+
+    padding: 8px 10px;
+
+    border-radius: 8px;
+
+    border: none;
+
+    font-size: 12.5px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+      transform 0.1s ease,
+      opacity 0.15s ease;
+
+    -webkit-app-region: no-drag;
+  }
+
+  button:active {
+    transform: scale(0.96);
+  }
+
+  /* Drink Button */
+  .drank {
+    background: linear-gradient(
+      90deg,
+      #ff3b3b,
+      #b30000
+    );
+
+    color: #ffffff;
+  }
+
+  .drank:hover {
+    opacity: 0.9;
+  }
+
+  /* Snooze Button */
+  .snooze {
+    background: transparent;
+
+    border: 1px solid #666;
+
+    color: #cccccc;
+  }
+
+  .snooze:hover {
+    border-color: #ffcc00;
+    color: #ffcc00;
+  }
+</style>
+
+</head>
+
+<body>
+
+  <div class="card">
+
+    <!-- Arc Reactor Glow -->
+    <div class="reactor"></div>
+
+    <!-- Main Content -->
+    <div>
+
+      <!-- Iron Man Image -->
+      <img
+        class="hero-image"
+        src="assets/ironman.jpeg"
+        alt="Iron Man"
+      >
+
+      <!-- JARVIS Title -->
+      <div class="title">
+        <span class="dot"></span>
+        IRON MAN
+      </div>
+
+      <!-- Hydration Message -->
+      <div class="message">
+        <b>Miss,</b> your hydration levels are suboptimal.<br>
+        Arc reactor's fine — you are not. Drink some water. 💧
+      </div>
+
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="actions">
+
+      <button
+        class="drank"
+        id="drankBtn">
+        💧I DRANK
+      </button>
+
+      <button
+        class="snooze"
+        id="snoozeBtn">
+        ⏳ Snooze 5m
+      </button>
+
+    </div>
+
+  </div>
+
+  <script>
+
+    // Drank button
+    document
+      .getElementById('drankBtn')
+      .addEventListener('click', () => {
+
+        window.hydration.drank();
+
+      });
+
+
+    // Snooze button
+    document
+      .getElementById('snoozeBtn')
+      .addEventListener('click', () => {
+
+        window.hydration.snooze();
+
+      });
+
+  </script>
+
+</body>
+</html>
