@@ -10,15 +10,52 @@
 
   body {
     margin: 0;
+    width: 100%;
+    height: 100vh;
+
     font-family: 'Segoe UI', Roboto, sans-serif;
+
     background: transparent;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     -webkit-app-region: drag;
+
+    overflow: visible;
   }
 
+  /* =========================
+     IRON MAN IMAGE
+     ========================= */
+
+  .hero-image {
+    width: 150px;
+    height: 220px;
+
+    object-fit: contain;
+
+    display: block;
+
+    margin-right: -10px;
+
+    z-index: 3;
+
+    -webkit-app-region: no-drag;
+  }
+
+
+  /* =========================
+     MAIN CARD
+     ========================= */
+
   .card {
-    height: 100vh;
-    width: 100vw;
+    width: 300px;
+    height: 260px;
+
     border-radius: 14px;
+
     padding: 16px 18px;
 
     background: linear-gradient(
@@ -40,12 +77,20 @@
     justify-content: space-between;
 
     overflow: hidden;
+
     position: relative;
+
+    z-index: 2;
   }
 
-  /* Arc Reactor Glow */
+
+  /* =========================
+     ARC REACTOR GLOW
+     ========================= */
+
   .reactor {
     position: absolute;
+
     top: -30px;
     right: -30px;
 
@@ -62,28 +107,17 @@
     );
 
     opacity: 0.5;
+
     filter: blur(2px);
 
     pointer-events: none;
   }
 
-  /* Iron Man Image */
-  .hero-image {
-    width: 100%;
-    height: 120px;
 
-    object-fit: cover;
+  /* =========================
+     MAIN CONTENT
+     ========================= */
 
-    border-radius: 10px;
-
-    margin-bottom: 10px;
-
-    display: block;
-
-    -webkit-app-region: no-drag;
-  }
-
-  /* JARVIS Title */
   .title {
     display: flex;
     align-items: center;
@@ -91,6 +125,7 @@
     gap: 8px;
 
     font-size: 15px;
+
     font-weight: 700;
 
     color: #ffcc00;
@@ -100,7 +135,9 @@
     -webkit-app-region: no-drag;
   }
 
+
   /* Red Dot */
+
   .title .dot {
     width: 8px;
     height: 8px;
@@ -112,7 +149,11 @@
     box-shadow: 0 0 8px #ff2b2b;
   }
 
-  /* Hydration Message */
+
+  /* =========================
+     HYDRATION MESSAGE
+     ========================= */
+
   .message {
     font-size: 13.5px;
 
@@ -129,7 +170,11 @@
     color: #ffcc00;
   }
 
-  /* Buttons Container */
+
+  /* =========================
+     BUTTONS
+     ========================= */
+
   .actions {
     display: flex;
 
@@ -140,7 +185,7 @@
     -webkit-app-region: no-drag;
   }
 
-  /* All Buttons */
+
   button {
     flex: 1;
 
@@ -163,11 +208,16 @@
     -webkit-app-region: no-drag;
   }
 
+
   button:active {
     transform: scale(0.96);
   }
 
-  /* Drink Button */
+
+  /* =========================
+     DRANK BUTTON
+     ========================= */
+
   .drank {
     background: linear-gradient(
       90deg,
@@ -182,7 +232,11 @@
     opacity: 0.9;
   }
 
-  /* Snooze Button */
+
+  /* =========================
+     SNOOZE BUTTON
+     ========================= */
+
   .snooze {
     background: transparent;
 
@@ -193,65 +247,115 @@
 
   .snooze:hover {
     border-color: #ffcc00;
+
     color: #ffcc00;
   }
+
 </style>
 
 </head>
 
+
 <body>
+
+
+  <!-- =========================
+       IRON MAN
+       ========================= -->
+
+  <img
+    class="hero-image"
+    src="./assets/ironman-withoutbg.PNG"
+    alt="Iron Man"
+  >
+
+
+  <!-- =========================
+       HYDRATION CARD
+       ========================= -->
 
   <div class="card">
 
+
     <!-- Arc Reactor Glow -->
+
     <div class="reactor"></div>
 
+
     <!-- Main Content -->
+
     <div>
 
-      <!-- Iron Man Image -->
-      <img
-        class="hero-image"
-        src="./assets/ironman-withoutbg.PNG"
-        alt="Iron Man"
-      >
 
       <!-- JARVIS Title -->
+
       <div class="title">
+
         <span class="dot"></span>
+
         IRON MAN
+
       </div>
 
+
       <!-- Hydration Message -->
+
       <div class="message">
+
         <b>Miss,</b> your hydration levels are suboptimal.<br>
-        Arc reactor's fine — you are not. Drink some water. 💧
+
+        Arc reactor's fine — you are not.
+        Drink some water. 💧
+
       </div>
+
 
     </div>
 
+
     <!-- Action Buttons -->
+
     <div class="actions">
+
+
+      <!-- I DRANK -->
 
       <button
         class="drank"
         id="drankBtn">
-        💧I DRANK
+
+        💧 I DRANK
+
       </button>
+
+
+      <!-- SNOOZE -->
 
       <button
         class="snooze"
         id="snoozeBtn">
+
         ⏳ Snooze 5m
+
       </button>
+
 
     </div>
 
+
   </div>
+
+
+
+  <!-- =========================
+       JAVASCRIPT
+       ========================= -->
 
   <script>
 
+
     // Drank button
+
     document
       .getElementById('drankBtn')
       .addEventListener('click', () => {
@@ -261,7 +365,9 @@
       });
 
 
+
     // Snooze button
+
     document
       .getElementById('snoozeBtn')
       .addEventListener('click', () => {
@@ -270,7 +376,10 @@
 
       });
 
+
   </script>
 
+
 </body>
+
 </html>
