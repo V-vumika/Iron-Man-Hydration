@@ -8,21 +8,34 @@
     box-sizing: border-box;
   }
 
-  body {
+  html, body {
     margin: 0;
     width: 100%;
-    height: 100vh;
+    height: 100%;
+    overflow: visible;
+    background: transparent;
+  }
 
+  body {
     font-family: 'Segoe UI', Roboto, sans-serif;
 
-    background: transparent;
-
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-end;      /* pushes the whole widget to the bottom */
+    justify-content: flex-end;  /* pushes the whole widget to the right */
 
     -webkit-app-region: drag;
 
+    padding: 0 8px 0 0;          /* flush to bottom, tiny gap from right edge */
+  }
+
+  /* =========================
+     WRAPPER (holds card + hero image together)
+     ========================= */
+
+  .widget-wrapper {
+    position: relative;
+    width: 590px;
+    height: 400px;
     overflow: visible;
   }
 
@@ -31,18 +44,19 @@
      ========================= */
 
   .hero-image {
-    width: 150px;
-    height: 220px;
+    position: absolute;
+    width: 350px;
+    height: 400px;
 
     object-fit: contain;
 
-    display: block;
-
-    margin-right: -10px;
+    left: 0;                    /* fully inside the wrapper — no negative left */
+    bottom: 0;
 
     z-index: 3;
 
     -webkit-app-region: no-drag;
+    pointer-events: none;       /* so it never blocks clicks on the card behind/around it */
   }
 
 
@@ -51,12 +65,12 @@
      ========================= */
 
   .card {
-    width: 300px;
-    height: 260px;
+    width: 260px;
+    height: 220px;
 
     border-radius: 14px;
 
-    padding: 16px 18px;
+    padding: 14px 16px;
 
     background: linear-gradient(
       145deg,
@@ -78,7 +92,11 @@
 
     overflow: hidden;
 
-    position: relative;
+    position: absolute;
+    bottom: 0;
+    right: 0;                   /* sits at the right edge of the wrapper — overlaps
+                                    the image's right side by 40px, like before,
+                                    but the image itself is never off-window */
 
     z-index: 2;
   }
@@ -124,7 +142,7 @@
 
     gap: 8px;
 
-    font-size: 15px;
+    font-size: 13.5px;
 
     font-weight: 700;
 
@@ -155,13 +173,13 @@
      ========================= */
 
   .message {
-    font-size: 13.5px;
+    font-size: 12px;
 
-    line-height: 1.45;
+    line-height: 1.4;
 
     color: #eaeaea;
 
-    margin-top: 6px;
+    margin-top: 4px;
 
     -webkit-app-region: no-drag;
   }
@@ -178,9 +196,9 @@
   .actions {
     display: flex;
 
-    gap: 10px;
+    gap: 8px;
 
-    margin-top: 10px;
+    margin-top: 8px;
 
     -webkit-app-region: no-drag;
   }
@@ -189,13 +207,13 @@
   button {
     flex: 1;
 
-    padding: 8px 10px;
+    padding: 7px 8px;
 
     border-radius: 8px;
 
     border: none;
 
-    font-size: 12.5px;
+    font-size: 11.5px;
 
     font-weight: 600;
 
@@ -258,93 +276,95 @@
 
 <body>
 
+  <div class="widget-wrapper">
 
-  <!-- =========================
-       IRON MAN
-       ========================= -->
+    <!-- =========================
+         IRON MAN
+         ========================= -->
 
-  <img
-    class="hero-image"
-    src="./assets/ironman-withoutbg.PNG"
-    alt="Iron Man"
-  >
-
-
-  <!-- =========================
-       HYDRATION CARD
-       ========================= -->
-
-  <div class="card">
+    <img
+      class="hero-image"
+      src="./assets/ironman-withoutbg.PNG"
+      alt="Iron Man"
+    >
 
 
-    <!-- Arc Reactor Glow -->
+    <!-- =========================
+         HYDRATION CARD
+         ========================= -->
 
-    <div class="reactor"></div>
-
-
-    <!-- Main Content -->
-
-    <div>
+    <div class="card">
 
 
-      <!-- JARVIS Title -->
+      <!-- Arc Reactor Glow -->
 
-      <div class="title">
+      <div class="reactor"></div>
 
-        <span class="dot"></span>
 
-        IRON MAN
+      <!-- Main Content -->
+
+      <div>
+
+
+        <!-- JARVIS Title -->
+
+        <div class="title">
+
+          <span class="dot"></span>
+
+          IRON MAN
+
+        </div>
+
+
+        <!-- Hydration Message -->
+
+        <div class="message">
+
+          <b>Miss,</b> your hydration levels are suboptimal.<br>
+
+          Arc reactor's fine — you are not.
+          Drink some water. 💧
+
+        </div>
+
 
       </div>
 
 
-      <!-- Hydration Message -->
+      <!-- Action Buttons -->
 
-      <div class="message">
+      <div class="actions">
 
-        <b>Miss,</b> your hydration levels are suboptimal.<br>
 
-        Arc reactor's fine — you are not.
-        Drink some water. 💧
+        <!-- I DRANK -->
+
+        <button
+          class="drank"
+          id="drankBtn">
+
+          💧 I DRANK
+
+        </button>
+
+
+        <!-- SNOOZE -->
+
+        <button
+          class="snooze"
+          id="snoozeBtn">
+
+          ⏳ Snooze 5m
+
+        </button>
+
 
       </div>
 
 
     </div>
-
-
-    <!-- Action Buttons -->
-
-    <div class="actions">
-
-
-      <!-- I DRANK -->
-
-      <button
-        class="drank"
-        id="drankBtn">
-
-        💧 I DRANK
-
-      </button>
-
-
-      <!-- SNOOZE -->
-
-      <button
-        class="snooze"
-        id="snoozeBtn">
-
-        ⏳ Snooze 5m
-
-      </button>
-
-
-    </div>
-
 
   </div>
-
 
 
   <!-- =========================

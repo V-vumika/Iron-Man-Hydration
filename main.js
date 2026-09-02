@@ -24,10 +24,10 @@ function createPopup() {
   const { width } = screen.getPrimaryDisplay().workAreaSize;
 
   popup = new BrowserWindow({
-    width: 360,
-    height: 300,
+    width: 640,
+    height: 420,
 
-    x: width - 380,
+    x: width - 660,
     y: 40,
 
     frame: false,
