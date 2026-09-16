@@ -27,7 +27,7 @@ function createPopup() {
     width: 640,
     height: 420,
 
-    x: width - 660,
+    x: width - 720,
     y: 40,
 
     frame: false,
