@@ -2,404 +2,198 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
 <style>
-  * {
-    box-sizing: border-box;
-  }
+  * { box-sizing: border-box; }
 
   html, body {
     margin: 0;
     width: 100%;
     height: 100%;
-    overflow: visible;
+    overflow: hidden;
     background: transparent;
   }
 
   body {
     font-family: 'Segoe UI', Roboto, sans-serif;
-
-    display: flex;
-    align-items: flex-end;      /* pushes the whole widget to the bottom */
-    justify-content: flex-end;  /* pushes the whole widget to the right */
-
     -webkit-app-region: drag;
-
-    padding: 0 8px 0 0;          /* flush to bottom, tiny gap from right edge */
   }
 
-  /* =========================
-     WRAPPER (holds card + hero image together)
-     ========================= */
-
+  /* WRAPPER — window (820x560) er sathe match */
   .widget-wrapper {
-    position: relative;
-    width: 620px;
-    height: 400px;
+    position: fixed;
+    inset: 0;
     overflow: visible;
   }
 
-  /* =========================
-     IRON MAN IMAGE
-     ========================= */
-
+  /* IRON MAN — aage 350x400 chhilo */
   .hero-image {
     position: absolute;
-    width: 350px;
-    height: 400px;
-
+    width: 440px;
+    height: 540px;
     object-fit: contain;
-
-    right: 0;                    /* fully inside the wrapper — no negative left */
-    bottom: 0;
-
+    object-position: bottom right;
+    right: 0;
+    bottom: -30px;
     z-index: 3;
-
     -webkit-app-region: no-drag;
-    pointer-events: none;       /* so it never blocks clicks on the card behind/around it */
+    pointer-events: none;
+    filter: drop-shadow(0 0 18px rgba(255, 60, 0, 0.35));
   }
 
-
-  /* =========================
-     MAIN CARD
-     ========================= */
-
+  /* CARD — uthano haat er kachhe */
   .card {
-    width: 260px;
-    height: 220px;
-
+    position: absolute;
+    width: 290px;
+    min-height: 200px;
+    right: 270px;     /* image theke duratto */
+    bottom: 250px;    /* haat er height */
     border-radius: 14px;
-
     padding: 14px 16px;
-
-    background: linear-gradient(
-      145deg,
-      #1a1a1a 0%,
-      #2b0000 100%
-    );
-
+    background: linear-gradient(145deg, #1a1a1a 0%, #2b0000 100%);
     border: 1.5px solid #ffcc00;
-
     box-shadow:
       0 0 20px rgba(255, 0, 0, 0.35),
       0 0 4px rgba(255, 204, 0, 0.6) inset;
-
     color: #f5f5f5;
-
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
-    overflow: hidden;
-
-    position: absolute;
-    bottom: 0;
-    left: 0;                   /* sits at the right edge of the wrapper — overlaps
-                                    the image's right side by 40px, like before,
-                                    but the image itself is never off-window */
-
     z-index: 2;
   }
 
-
-  /* =========================
-     ARC REACTOR GLOW
-     ========================= */
+  /* haat er dike pointer */
+  .card::after {
+    content: "";
+    position: absolute;
+    right: -9px;
+    top: 34px;
+    width: 16px;
+    height: 16px;
+    background: linear-gradient(145deg, #241010, #2b0000);
+    border-right: 1.5px solid #ffcc00;
+    border-top: 1.5px solid #ffcc00;
+    transform: rotate(45deg);
+  }
 
   .reactor {
     position: absolute;
-
     top: -30px;
-    right: -30px;
-
+    left: -30px;
     width: 90px;
     height: 90px;
-
     border-radius: 50%;
-
-    background: radial-gradient(
-      circle,
-      #baf7ff 0%,
-      #29a9e0 40%,
-      transparent 70%
-    );
-
+    background: radial-gradient(circle, #baf7ff 0%, #29a9e0 40%, transparent 70%);
     opacity: 0.5;
-
     filter: blur(2px);
-
     pointer-events: none;
   }
-
-
-  /* =========================
-     MAIN CONTENT
-     ========================= */
 
   .title {
     display: flex;
     align-items: center;
-
     gap: 8px;
-
     font-size: 13.5px;
-
     font-weight: 700;
-
     color: #ffcc00;
-
     letter-spacing: 0.5px;
-
     -webkit-app-region: no-drag;
   }
-
-
-  /* Red Dot */
 
   .title .dot {
     width: 8px;
     height: 8px;
-
     border-radius: 50%;
-
     background: #ff2b2b;
-
     box-shadow: 0 0 8px #ff2b2b;
   }
 
-
-  /* =========================
-     HYDRATION MESSAGE
-     ========================= */
-
   .message {
     font-size: 12px;
-
     line-height: 1.4;
-
     color: #eaeaea;
-
-    margin-top: 4px;
-
+    margin-top: 6px;
     -webkit-app-region: no-drag;
   }
 
-  .message b {
-    color: #ffcc00;
-  }
-
-
-  /* =========================
-     BUTTONS
-     ========================= */
+  .message b { color: #ffcc00; }
 
   .actions {
     display: flex;
-
     gap: 8px;
-
-    margin-top: 8px;
-
+    margin-top: 14px;
     -webkit-app-region: no-drag;
   }
-
 
   button {
     flex: 1;
-
     padding: 7px 8px;
-
     border-radius: 8px;
-
     border: none;
-
     font-size: 11.5px;
-
     font-weight: 600;
-
     cursor: pointer;
-
-    transition:
-      transform 0.1s ease,
-      opacity 0.15s ease;
-
+    transition: transform 0.1s ease, opacity 0.15s ease;
     -webkit-app-region: no-drag;
   }
 
-
-  button:active {
-    transform: scale(0.96);
-  }
-
-
-  /* =========================
-     DRANK BUTTON
-     ========================= */
+  button:active { transform: scale(0.96); }
 
   .drank {
-    background: linear-gradient(
-      90deg,
-      #ff3b3b,
-      #b30000
-    );
-
+    background: linear-gradient(90deg, #ff3b3b, #b30000);
     color: #ffffff;
   }
 
-  .drank:hover {
-    opacity: 0.9;
-  }
-
-
-  /* =========================
-     SNOOZE BUTTON
-     ========================= */
+  .drank:hover { opacity: 0.9; }
 
   .snooze {
     background: transparent;
-
     border: 1px solid #666;
-
     color: #cccccc;
   }
 
   .snooze:hover {
     border-color: #ffcc00;
-
     color: #ffcc00;
   }
-
 </style>
-
 </head>
 
-
 <body>
-
   <div class="widget-wrapper">
 
-    <!-- =========================
-         IRON MAN
-         ========================= -->
-
-    <img
-      class="hero-image"
-      src="./assets/ironmain.png"
-      alt="Iron Man"
-    >
-
-
-    <!-- =========================
-         HYDRATION CARD
-         ========================= -->
+    <img class="hero-image" src="./assets/ironmain.png" alt="Iron Man">
 
     <div class="card">
-
-
-      <!-- Arc Reactor Glow -->
-
       <div class="reactor"></div>
 
-
-      <!-- Main Content -->
-
       <div>
-
-
-        <!-- JARVIS Title -->
-
         <div class="title">
-
           <span class="dot"></span>
-
           IRON MAN
-
         </div>
-
-
-        <!-- Hydration Message -->
 
         <div class="message">
-
           <b>Miss,</b> your hydration levels are suboptimal.<br>
-
-          Arc reactor's fine — you are not.
-          Drink some water. 💧
-
+          Arc reactor's fine — you are not. Drink some water. 💧
         </div>
-
-
       </div>
-
-
-      <!-- Action Buttons -->
 
       <div class="actions">
-
-
-        <!-- I DRANK -->
-
-        <button
-          class="drank"
-          id="drankBtn">
-
-          💧 I DRANK
-
-        </button>
-
-
-        <!-- SNOOZE -->
-
-        <button
-          class="snooze"
-          id="snoozeBtn">
-
-          ⏳ Snooze 5m
-
-        </button>
-
-
+        <button class="drank" id="drankBtn">💧 I DRANK</button>
+        <button class="snooze" id="snoozeBtn">⏳ Snooze 5m</button>
       </div>
-
-
     </div>
 
   </div>
 
-
-  <!-- =========================
-       JAVASCRIPT
-       ========================= -->
-
   <script>
+    document.getElementById('drankBtn').addEventListener('click', () => {
+      window.hydration.drank();
+    });
 
-
-    // Drank button
-
-    document
-      .getElementById('drankBtn')
-      .addEventListener('click', () => {
-
-        window.hydration.drank();
-
-      });
-
-
-
-    // Snooze button
-
-    document
-      .getElementById('snoozeBtn')
-      .addEventListener('click', () => {
-
-        window.hydration.snooze();
-
-      });
-
-
+    document.getElementById('snoozeBtn').addEventListener('click', () => {
+      window.hydration.snooze();
+    });
   </script>
-
-
 </body>
-
 </html>

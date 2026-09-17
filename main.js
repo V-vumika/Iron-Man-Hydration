@@ -11,6 +11,10 @@ const REMINDER_INTERVAL_MS =
 
 const SNOOZE_MS = 5 * 60 * 1000;
 
+// Window size — popup.html er layout ei size er upor base kora
+const WIN_WIDTH = 820;
+const WIN_HEIGHT = 560;
+
 let intervalHandle = null;
 
 
@@ -21,20 +25,22 @@ function createPopup() {
     return;
   }
 
-  const { width } = screen.getPrimaryDisplay().workAreaSize;
+  const { width, height } = screen.getPrimaryDisplay().workAreaSize;
 
   popup = new BrowserWindow({
-    width: 640,
-    height: 420,
+    width: WIN_WIDTH,
+    height: WIN_HEIGHT,
 
-    x: width - 720,
-    y: 40,
+    x: width - WIN_WIDTH - 10,
+    y: height - WIN_HEIGHT - 10,
 
     frame: false,
     resizable: false,
     alwaysOnTop: true,
     skipTaskbar: true,
     transparent: true,
+    hasShadow: false,
+    backgroundColor: '#00000000',
 
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
@@ -67,10 +73,8 @@ function scheduleReminders() {
 // ---- App Ready ----
 app.whenReady().then(() => {
 
-  // Show popup shortly after launching
   setTimeout(createPopup, 5000);
 
-  // Continue reminders
   scheduleReminders();
 
   app.on('activate', () => {
@@ -89,21 +93,17 @@ app.on('window-all-closed', (e) => {
 
 // ---- DRANK Button ----
 ipcMain.on('hydration:drank', () => {
-
   if (popup && !popup.isDestroyed()) {
     popup.close();
   }
-
 });
 
 
 // ---- SNOOZE Button ----
 ipcMain.on('hydration:snooze', () => {
-
   if (popup && !popup.isDestroyed()) {
     popup.close();
   }
 
   setTimeout(createPopup, SNOOZE_MS);
-
 });
