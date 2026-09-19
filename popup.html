@@ -40,120 +40,204 @@
     filter: drop-shadow(0 0 18px rgba(255, 60, 0, 0.35));
   }
 
-  /* CARD — uthano haat er kachhe */
+  /* ---------- STARK HUD CARD ---------- */
   .card {
+    --cyan: #22d3ee;
+    --cyan-hi: #a5f3fc;
+    --warn: #ff5a1f;
+
     position: absolute;
-    width: 290px;
-    min-height: 200px;
-    right: 270px;     /* image theke duratto */
-    bottom: 250px;    /* haat er height */
-    border-radius: 14px;
-    padding: 14px 16px;
-    background: linear-gradient(145deg, #1a1a1a 0%, #2b0000 100%);
-    border: 1.5px solid #ffcc00;
-    box-shadow:
-      0 0 20px rgba(255, 0, 0, 0.35),
-      0 0 4px rgba(255, 204, 0, 0.6) inset;
-    color: #f5f5f5;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    right: 270px;            /* image theke duratto */
+    bottom: 190px;           /* haat er height (window 560px, card 320px, upore reactor er jaygar jonno) */
+    width: 280px;
+    height: 240px;
     z-index: 2;
+    box-sizing: border-box;
+    font-family: "Bahnschrift", "Rajdhani", "Segoe UI", sans-serif;
+    color: #d8f6ff;
+    user-select: none;
+    -webkit-app-region: no-drag;
+    filter:
+      drop-shadow(0 0 8px rgba(34, 211, 238, .55))
+      drop-shadow(0 0 26px rgba(0, 150, 200, .35));
+    animation: hud-in .4s cubic-bezier(.2, .8, .2, 1) both;
+  }
+  .card *, .card *::before, .card *::after { box-sizing: border-box; }
+
+  /* outer glowing border */
+  .hud-frame {
+    position: absolute; inset: 0;
+    clip-path: polygon(16% 0, 84% 0, 100% 20%, 100% 64%, 84% 100%, 16% 100%, 0 64%, 0 20%);
+    background: linear-gradient(160deg, #38e1ff 0%, #0b6f8a 35%, #0a3c4d 62%, #38e1ff 100%);
+  }
+  /* dark inner panel */
+  .hud-inner {
+    position: absolute; inset: 4px;
+    clip-path: polygon(16% 0, 84% 0, 100% 20%, 100% 64%, 84% 100%, 16% 100%, 0 64%, 0 20%);
+    background:
+      radial-gradient(ellipse at 50% 32%, rgba(34, 211, 238, .16), transparent 62%),
+      linear-gradient(180deg, #04202a 0%, #020c11 100%);
   }
 
-  /* haat er dike pointer */
-  .card::after {
-    content: "";
-    position: absolute;
-    right: -9px;
-    top: 34px;
-    width: 16px;
-    height: 16px;
-    background: linear-gradient(145deg, #241010, #2b0000);
-    border-right: 1.5px solid #ffcc00;
-    border-top: 1.5px solid #ffcc00;
+  /* arc reactor on top */
+  .hud-reactor {
+    position: absolute; top: -18px; left: 50%;
+    width: 108px; height: 63px;
+    transform: translateX(-50%);
+    pointer-events: none;
+    filter: drop-shadow(0 0 8px rgba(120, 240, 255, .9));
+    animation: hud-pulse 2.6s ease-in-out infinite;
+  }
+
+  /* small hex pods beside the reactor */
+  .hud-pod {
+    position: absolute; top: 22px;
+    width: 34px; height: 20px;
+    clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+    background: linear-gradient(180deg, #a5f3fc, #0891b2);
+    box-shadow: 0 0 10px var(--cyan);
+  }
+  .hud-pod--l { left: 78px; }
+  .hud-pod--r { right: 78px; }
+
+  /* shoulder LEDs */
+  .hud-led {
+    position: absolute; top: 86px;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: radial-gradient(circle, #e0fbff 0%, var(--cyan) 55%, #0e7490 100%);
+    box-shadow: 0 0 10px var(--cyan);
+  }
+  .hud-led--l { left: 16px; }
+  .hud-led--r { right: 16px; }
+
+  /* side light bars */
+  .hud-bar {
+    position: absolute; top: 204px;
+    width: 9px; height: 56px; border-radius: 2px;
+    background: linear-gradient(180deg, #67e8f9, #0891b2);
+    box-shadow: 0 0 10px rgba(34, 211, 238, .8);
+    opacity: .9;
+  }
+  .hud-bar--l { left: 30px;  transform: rotate(-29deg); }
+  .hud-bar--r { right: 30px; transform: rotate(29deg); }
+
+  /* red chevrons */
+  .hud-chev {
+    position: absolute; top: 118px;
+    width: 9px; height: 9px;
+    border: 0 solid var(--warn);
+    filter: drop-shadow(0 0 4px rgba(255, 90, 31, .8));
     transform: rotate(45deg);
   }
+  .hud-chev--l { left: 26px;  border-left-width: 2px;  border-bottom-width: 2px; }
+  .hud-chev--r { right: 26px; border-right-width: 2px; border-top-width: 2px; }
 
-  .reactor {
-    position: absolute;
-    top: -30px;
-    left: -30px;
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    background: radial-gradient(circle, #baf7ff 0%, #29a9e0 40%, transparent 70%);
-    opacity: 0.5;
-    filter: blur(2px);
-    pointer-events: none;
+  /* tiny corner labels */
+  .hud-tag {
+    position: absolute; top: 76px;
+    font-size: 8.5px; line-height: 1.6;
+    letter-spacing: .2em; text-transform: uppercase;
+    color: rgba(165, 243, 252, .45);
+  }
+  .hud-tag--l { left: 48px; }
+  .hud-tag--r { right: 48px; text-align: right; }
+
+  /* main content */
+  .hud-body {
+    position: absolute; inset: 0;
+    padding: 68px 34px 0;
+    display: flex; flex-direction: column; align-items: center;
+    text-align: center;
   }
 
-  .title {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 13.5px;
-    font-weight: 700;
-    color: #ffcc00;
-    letter-spacing: 0.5px;
+  .hud-ring { width: 78px; height: 78px; flex: none; overflow: visible; }
+  .hud-ring-dash { transform-box: fill-box; transform-origin: center; animation: hud-spin 16s linear infinite; }
+  .hud-drop { filter: drop-shadow(0 0 6px rgba(34, 211, 238, .9)); }
+
+  .card .title {
+    margin-top: 8px;
+    font-size: 19px; font-weight: 700; line-height: 1.2;
+    letter-spacing: .05em; text-transform: uppercase;
+    color: #7be9ff;
+    text-shadow: 0 0 10px rgba(34, 211, 238, .55);
+    -webkit-app-region: no-drag;
+  }
+  .card .message {
+    margin-top: 3px;
+    font-size: 13.5px; line-height: 1.3; letter-spacing: .04em;
+    color: rgba(216, 246, 255, .72);
     -webkit-app-region: no-drag;
   }
 
-  .title .dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #ff2b2b;
-    box-shadow: 0 0 8px #ff2b2b;
-  }
-
-  .message {
-    font-size: 12px;
-    line-height: 1.4;
-    color: #eaeaea;
-    margin-top: 6px;
+  .card .actions {
+    display: flex; gap: 12px;
+    width: 100%; margin-top: 14px; padding: 0 4px;
     -webkit-app-region: no-drag;
   }
-
-  .message b { color: #ffcc00; }
-
-  .actions {
-    display: flex;
-    gap: 8px;
-    margin-top: 14px;
+  .card button {
+    flex: 1; height: 44px;
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    font: inherit; font-size: 14px; font-weight: 700;
+    letter-spacing: .06em; text-transform: uppercase;
+    border-radius: 9px; cursor: pointer;
+    transition: transform .12s ease, filter .12s ease;
     -webkit-app-region: no-drag;
   }
+  .card button svg { width: 16px; height: 16px; flex: none; }
+  .card button:hover  { transform: translateY(-1px); filter: brightness(1.12); }
+  .card button:active { transform: scale(.97); }
+  .card button:focus-visible { outline: 2px solid var(--cyan-hi); outline-offset: 2px; }
 
-  button {
-    flex: 1;
-    padding: 7px 8px;
-    border-radius: 8px;
-    border: none;
-    font-size: 11.5px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: transform 0.1s ease, opacity 0.15s ease;
-    -webkit-app-region: no-drag;
+  .card .drank {
+    color: #04222b;
+    border: 1px solid var(--cyan-hi);
+    background: linear-gradient(180deg, #7defff 0%, #12bfe0 100%);
+    box-shadow: 0 0 16px rgba(34, 211, 238, .55), inset 0 1px 0 rgba(255, 255, 255, .6);
+  }
+  .card .snooze {
+    color: #d8f6ff;
+    border: 1px solid rgba(165, 243, 252, .35);
+    background: linear-gradient(180deg, rgba(255, 255, 255, .05), rgba(255, 255, 255, .01));
   }
 
-  button:active { transform: scale(0.96); }
-
-  .drank {
-    background: linear-gradient(90deg, #ff3b3b, #b30000);
-    color: #ffffff;
+  .hud-foot {
+    margin-top: auto; padding-bottom: 25px;
+    display: flex; align-items: center; gap: 10px;
+    font-size: 9px; letter-spacing: .32em; text-transform: uppercase;
+    color: rgba(125, 233, 255, .55);
+  }
+  .hud-foot::before, .hud-foot::after {
+    content: ""; width: 34px; height: 1px;
+    background: rgba(125, 233, 255, .35);
   }
 
-  .drank:hover { opacity: 0.9; }
-
-  .snooze {
-    background: transparent;
-    border: 1px solid #666;
-    color: #cccccc;
+  /* bottom tab with 3 bars */
+  .hud-tab {
+    position: absolute; bottom: -5px; left: 50%;
+    width: 92px; height: 24px; transform: translateX(-50%);
+    clip-path: polygon(8% 0, 92% 0, 100% 100%, 0 100%);
+    background: linear-gradient(180deg, #0f6f88, #0a3c4d);
+    display: flex; align-items: center; justify-content: center; gap: 5px;
+    padding-bottom: 4px;
+  }
+  .hud-tab i {
+    width: 4px; height: 12px; border-radius: 1px;
+    background: var(--cyan-hi);
+    box-shadow: 0 0 8px var(--cyan);
   }
 
-  .snooze:hover {
-    border-color: #ffcc00;
-    color: #ffcc00;
+  @keyframes hud-in {
+    from { opacity: 0; transform: translateX(14px) scale(.96); }
+    to   { opacity: 1; transform: none; }
+  }
+  @keyframes hud-pulse {
+    0%, 100% { filter: drop-shadow(0 0 6px rgba(120, 240, 255, .7)); }
+    50%      { filter: drop-shadow(0 0 14px rgba(160, 250, 255, 1)); }
+  }
+  @keyframes hud-spin { to { transform: rotate(360deg); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card, .hud-reactor, .hud-ring-dash { animation: none; }
   }
 </style>
 </head>
@@ -163,25 +247,70 @@
 
     <img class="hero-image" src="./assets/ironmain.png" alt="Iron Man">
 
-    <div class="card">
-      <div class="reactor"></div>
+    <div class="card" role="alertdialog" aria-labelledby="hud-title">
+      <div class="hud-frame"></div>
+      <div class="hud-inner"></div>
 
-      <div>
-        <div class="title">
-          <span class="dot"></span>
-          IRON MAN
+      <!-- arc reactor -->
+      <svg class="hud-reactor" viewBox="0 0 120 70" aria-hidden="true">
+        <defs>
+          <radialGradient id="hudCore" cx="50%" cy="30%" r="75%">
+            <stop offset="0"   stop-color="#ffffff"/>
+            <stop offset=".45" stop-color="#8ff3ff"/>
+            <stop offset="1"   stop-color="#0891b2"/>
+          </radialGradient>
+        </defs>
+        <polygon points="8,6 112,6 60,68" fill="#04222b" stroke="#22d3ee" stroke-width="3" stroke-linejoin="round"/>
+        <polygon points="24,14 96,14 60,54" fill="url(#hudCore)" stroke="#a5f3fc" stroke-width="1.5" stroke-linejoin="round"/>
+      </svg>
+
+      <div class="hud-pod hud-pod--l"></div>
+      <div class="hud-pod hud-pod--r"></div>
+      <div class="hud-led hud-led--l"></div>
+      <div class="hud-led hud-led--r"></div>
+      <div class="hud-bar hud-bar--l"></div>
+      <div class="hud-bar hud-bar--r"></div>
+      <div class="hud-chev hud-chev--l"></div>
+      <div class="hud-chev hud-chev--r"></div>
+
+      <div class="hud-tag hud-tag--l">Stark<br>Systems</div>
+      <div class="hud-tag hud-tag--r">Better<br>Humans<br>Daily</div>
+
+      <div class="hud-body">
+        <svg class="hud-ring" viewBox="0 0 100 100" aria-hidden="true">
+          <defs>
+            <linearGradient id="hudDrop" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#a5f3fc"/>
+              <stop offset="1" stop-color="#06b6d4"/>
+            </linearGradient>
+          </defs>
+          <circle cx="50" cy="50" r="38" fill="none" stroke="rgba(34,211,238,.3)" stroke-width="1"/>
+          <circle class="hud-ring-dash" cx="50" cy="50" r="46" fill="none" stroke="#22d3ee" stroke-width="2.5"
+                  stroke-linecap="round" stroke-dasharray="82 9 42 9 82 9 42 9"/>
+          <g class="hud-drop">
+            <path d="M50 24 C50 24 33 44 33 58 a17 17 0 0 0 34 0 C67 44 50 24 50 24 Z" fill="url(#hudDrop)"/>
+            <path d="M43 54 C43 50 46 46 48 43" fill="none" stroke="#ffffff" stroke-opacity=".7" stroke-width="2.2" stroke-linecap="round"/>
+          </g>
+        </svg>
+
+        <div class="title" id="hud-title">Hydration levels are low.</div>
+        <div class="message">Drink some water.</div>
+
+        <div class="actions">
+          <button class="drank" id="drankBtn" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5C12 2.5 5 10.5 5 15a7 7 0 0 0 14 0c0-4.5-7-12.5-7-12.5z" fill="currentColor"/></svg>
+            I drank
+          </button>
+          <button class="snooze" id="snoozeBtn" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12M6 21h12M7 3v4l5 5-5 5v4M17 3v4l-5 5 5 5v4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Snooze 5m
+          </button>
         </div>
 
-        <div class="message">
-          <b>Miss,</b> your hydration levels are suboptimal.<br>
-          Arc reactor's fine — you are not. Drink some water. 💧
-        </div>
+        <div class="hud-foot">Fuel a brighter you</div>
       </div>
 
-      <div class="actions">
-        <button class="drank" id="drankBtn">💧 I DRANK</button>
-        <button class="snooze" id="snoozeBtn">⏳ Snooze 5m</button>
-      </div>
+      <div class="hud-tab"><i></i><i></i><i></i></div>
     </div>
 
   </div>
