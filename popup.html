@@ -25,7 +25,7 @@
     overflow: visible;
   }
 
-  /* IRON MAN — aage 350x400 chhilo */
+  /* IRON MAN */
   .hero-image {
     position: absolute;
     width: 440px;
@@ -40,204 +40,51 @@
     filter: drop-shadow(0 0 18px rgba(255, 60, 0, 0.35));
   }
 
-  /* ---------- STARK HUD CARD ---------- */
+  /* ---------- STARK HUD CARD (pure SVG + CSS) ---------- */
   .card {
-    --cyan: #22d3ee;
-    --cyan-hi: #a5f3fc;
-    --warn: #ff5a1f;
-
     position: absolute;
     right: 270px;            /* image theke duratto */
-    bottom: 190px;           /* haat er height (window 560px, card 320px, upore reactor er jaygar jonno) */
-    width: 280px;
-    height: 240px;
+    bottom: 190px;           /* haat er height */
+    width: 400px;            /* height auto: aspect ratio thik thake */
+    aspect-ratio: 883 / 701;
     z-index: 2;
-    box-sizing: border-box;
-    font-family: "Bahnschrift", "Rajdhani", "Segoe UI", sans-serif;
-    color: #d8f6ff;
     user-select: none;
     -webkit-app-region: no-drag;
-    filter:
-      drop-shadow(0 0 8px rgba(34, 211, 238, .55))
-      drop-shadow(0 0 26px rgba(0, 150, 200, .35));
     animation: hud-in .4s cubic-bezier(.2, .8, .2, 1) both;
   }
-  .card *, .card *::before, .card *::after { box-sizing: border-box; }
 
-  /* outer glowing border */
-  .hud-frame {
-    position: absolute; inset: 0;
-    clip-path: polygon(16% 0, 84% 0, 100% 20%, 100% 64%, 84% 100%, 16% 100%, 0 64%, 0 20%);
-    background: linear-gradient(160deg, #38e1ff 0%, #0b6f8a 35%, #0a3c4d 62%, #38e1ff 100%);
-  }
-  /* dark inner panel */
-  .hud-inner {
-    position: absolute; inset: 4px;
-    clip-path: polygon(16% 0, 84% 0, 100% 20%, 100% 64%, 84% 100%, 16% 100%, 0 64%, 0 20%);
-    background:
-      radial-gradient(ellipse at 50% 32%, rgba(34, 211, 238, .16), transparent 62%),
-      linear-gradient(180deg, #04202a 0%, #020c11 100%);
-  }
-
-  /* arc reactor on top */
-  .hud-reactor {
-    position: absolute; top: -18px; left: 50%;
-    width: 108px; height: 63px;
-    transform: translateX(-50%);
+  .card-art {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
     pointer-events: none;
-    filter: drop-shadow(0 0 8px rgba(120, 240, 255, .9));
-    animation: hud-pulse 2.6s ease-in-out infinite;
   }
 
-  /* small hex pods beside the reactor */
-  .hud-pod {
-    position: absolute; top: 22px;
-    width: 34px; height: 20px;
-    clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
-    background: linear-gradient(180deg, #a5f3fc, #0891b2);
-    box-shadow: 0 0 10px var(--cyan);
-  }
-  .hud-pod--l { left: 78px; }
-  .hud-pod--r { right: 78px; }
-
-  /* shoulder LEDs */
-  .hud-led {
-    position: absolute; top: 86px;
-    width: 14px; height: 14px; border-radius: 50%;
-    background: radial-gradient(circle, #e0fbff 0%, var(--cyan) 55%, #0e7490 100%);
-    box-shadow: 0 0 10px var(--cyan);
-  }
-  .hud-led--l { left: 16px; }
-  .hud-led--r { right: 16px; }
-
-  /* side light bars */
-  .hud-bar {
-    position: absolute; top: 204px;
-    width: 9px; height: 56px; border-radius: 2px;
-    background: linear-gradient(180deg, #67e8f9, #0891b2);
-    box-shadow: 0 0 10px rgba(34, 211, 238, .8);
-    opacity: .9;
-  }
-  .hud-bar--l { left: 30px;  transform: rotate(-29deg); }
-  .hud-bar--r { right: 30px; transform: rotate(29deg); }
-
-  /* red chevrons */
-  .hud-chev {
-    position: absolute; top: 118px;
-    width: 9px; height: 9px;
-    border: 0 solid var(--warn);
-    filter: drop-shadow(0 0 4px rgba(255, 90, 31, .8));
-    transform: rotate(45deg);
-  }
-  .hud-chev--l { left: 26px;  border-left-width: 2px;  border-bottom-width: 2px; }
-  .hud-chev--r { right: 26px; border-right-width: 2px; border-top-width: 2px; }
-
-  /* tiny corner labels */
-  .hud-tag {
-    position: absolute; top: 76px;
-    font-size: 8.5px; line-height: 1.6;
-    letter-spacing: .2em; text-transform: uppercase;
-    color: rgba(165, 243, 252, .45);
-  }
-  .hud-tag--l { left: 48px; }
-  .hud-tag--r { right: 48px; text-align: right; }
-
-  /* main content */
-  .hud-body {
-    position: absolute; inset: 0;
-    padding: 68px 34px 0;
-    display: flex; flex-direction: column; align-items: center;
-    text-align: center;
-  }
-
-  .hud-ring { width: 78px; height: 78px; flex: none; overflow: visible; }
-  .hud-ring-dash { transform-box: fill-box; transform-origin: center; animation: hud-spin 16s linear infinite; }
-  .hud-drop { filter: drop-shadow(0 0 6px rgba(34, 211, 238, .9)); }
-
-  .card .title {
-    margin-top: 8px;
-    font-size: 19px; font-weight: 700; line-height: 1.2;
-    letter-spacing: .05em; text-transform: uppercase;
-    color: #7be9ff;
-    text-shadow: 0 0 10px rgba(34, 211, 238, .55);
+  /* SVG er button gulor upor invisible click area */
+  .hit {
+    position: absolute;
+    padding: 0;
+    border: 0;
+    border-radius: 3.5% / 14%;
+    background: transparent;
+    cursor: pointer;
     -webkit-app-region: no-drag;
+    transition: background .12s ease, box-shadow .12s ease, transform .12s ease;
   }
-  .card .message {
-    margin-top: 3px;
-    font-size: 13.5px; line-height: 1.3; letter-spacing: .04em;
-    color: rgba(216, 246, 255, .72);
-    -webkit-app-region: no-drag;
-  }
+  .hit:hover  { background: rgba(165, 243, 252, .14); box-shadow: 0 0 16px rgba(34, 211, 238, .7); }
+  .hit:active { background: rgba(165, 243, 252, .28); transform: scale(.98); }
+  .hit:focus-visible { outline: 2px solid #a5f3fc; outline-offset: 2px; }
 
-  .card .actions {
-    display: flex; gap: 12px;
-    width: 100%; margin-top: 14px; padding: 0 4px;
-    -webkit-app-region: no-drag;
-  }
-  .card button {
-    flex: 1; height: 44px;
-    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-    font: inherit; font-size: 14px; font-weight: 700;
-    letter-spacing: .06em; text-transform: uppercase;
-    border-radius: 9px; cursor: pointer;
-    transition: transform .12s ease, filter .12s ease;
-    -webkit-app-region: no-drag;
-  }
-  .card button svg { width: 16px; height: 16px; flex: none; }
-  .card button:hover  { transform: translateY(-1px); filter: brightness(1.12); }
-  .card button:active { transform: scale(.97); }
-  .card button:focus-visible { outline: 2px solid var(--cyan-hi); outline-offset: 2px; }
-
-  .card .drank {
-    color: #04222b;
-    border: 1px solid var(--cyan-hi);
-    background: linear-gradient(180deg, #7defff 0%, #12bfe0 100%);
-    box-shadow: 0 0 16px rgba(34, 211, 238, .55), inset 0 1px 0 rgba(255, 255, 255, .6);
-  }
-  .card .snooze {
-    color: #d8f6ff;
-    border: 1px solid rgba(165, 243, 252, .35);
-    background: linear-gradient(180deg, rgba(255, 255, 255, .05), rgba(255, 255, 255, .01));
-  }
-
-  .hud-foot {
-    margin-top: auto; padding-bottom: 25px;
-    display: flex; align-items: center; gap: 10px;
-    font-size: 9px; letter-spacing: .32em; text-transform: uppercase;
-    color: rgba(125, 233, 255, .55);
-  }
-  .hud-foot::before, .hud-foot::after {
-    content: ""; width: 34px; height: 1px;
-    background: rgba(125, 233, 255, .35);
-  }
-
-  /* bottom tab with 3 bars */
-  .hud-tab {
-    position: absolute; bottom: -5px; left: 50%;
-    width: 92px; height: 24px; transform: translateX(-50%);
-    clip-path: polygon(8% 0, 92% 0, 100% 100%, 0 100%);
-    background: linear-gradient(180deg, #0f6f88, #0a3c4d);
-    display: flex; align-items: center; justify-content: center; gap: 5px;
-    padding-bottom: 4px;
-  }
-  .hud-tab i {
-    width: 4px; height: 12px; border-radius: 1px;
-    background: var(--cyan-hi);
-    box-shadow: 0 0 8px var(--cyan);
-  }
+  .hit-drank  { left: 18.0%; top: 64.8%; width: 30.8%; height: 12.1%; }
+  .hit-snooze { left: 51.2%; top: 65.2%; width: 30.4%; height: 11.3%; }
 
   @keyframes hud-in {
     from { opacity: 0; transform: translateX(14px) scale(.96); }
     to   { opacity: 1; transform: none; }
   }
-  @keyframes hud-pulse {
-    0%, 100% { filter: drop-shadow(0 0 6px rgba(120, 240, 255, .7)); }
-    50%      { filter: drop-shadow(0 0 14px rgba(160, 250, 255, 1)); }
-  }
-  @keyframes hud-spin { to { transform: rotate(360deg); } }
-
   @media (prefers-reduced-motion: reduce) {
-    .card, .hud-reactor, .hud-ring-dash { animation: none; }
+    .card { animation: none; }
   }
 </style>
 </head>
@@ -247,70 +94,174 @@
 
     <img class="hero-image" src="./assets/ironmain.png" alt="Iron Man">
 
-    <div class="card" role="alertdialog" aria-labelledby="hud-title">
-      <div class="hud-frame"></div>
-      <div class="hud-inner"></div>
+    <div class="card" role="alertdialog" aria-label="Hydration levels are low. Drink some water.">
+      <svg class="card-art" aria-hidden="true" viewBox="0 0 883 701" font-family="Bahnschrift, Rajdhani, 'Segoe UI', sans-serif">
+      <defs>
+        <linearGradient id="frameFill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#05212b"/><stop offset=".5" stop-color="#030f15"/><stop offset="1" stop-color="#020b10"/>
+        </linearGradient>
+        <linearGradient id="edge" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#3fb9d4"/><stop offset=".5" stop-color="#157f97"/><stop offset="1" stop-color="#2fa8c2"/>
+        </linearGradient>
+        <linearGradient id="barFill" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#8ff3ff"/><stop offset="1" stop-color="#12afd0"/>
+        </linearGradient>
+        <linearGradient id="btnFill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#6eeeff"/><stop offset=".55" stop-color="#2ad8f6"/><stop offset="1" stop-color="#12bfe4"/>
+        </linearGradient>
+        <radialGradient id="coreGrad" cx="50%" cy="28%" r="80%">
+          <stop offset="0" stop-color="#ffffff"/><stop offset=".35" stop-color="#b9f9ff"/><stop offset=".7" stop-color="#3fdcf7"/><stop offset="1" stop-color="#0b9ec0"/>
+        </radialGradient>
+        <radialGradient id="ledGrad" cx="50%" cy="50%" r="50%">
+          <stop offset="0" stop-color="#eaffff"/><stop offset=".55" stop-color="#4ee4ff"/><stop offset="1" stop-color="#16a9cb"/>
+        </radialGradient>
+        <linearGradient id="dropGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#d9fdff"/><stop offset=".5" stop-color="#4fe3fb"/><stop offset="1" stop-color="#1ab4d6"/>
+        </linearGradient>
+        <radialGradient id="panelGlow" gradientUnits="userSpaceOnUse" cx="441.5" cy="300" r="240">
+          <stop offset="0" stop-color="#0fb0d0" stop-opacity=".22"/><stop offset="1" stop-color="#1aa3c0" stop-opacity="0"/>
+        </radialGradient>
+        <filter id="glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="7"/></filter>
+        <filter id="glowS" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3"/></filter>
+        <filter id="glowXS" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="1.6"/></filter>
 
-      <!-- arc reactor -->
-      <svg class="hud-reactor" viewBox="0 0 120 70" aria-hidden="true">
-        <defs>
-          <radialGradient id="hudCore" cx="50%" cy="30%" r="75%">
-            <stop offset="0"   stop-color="#ffffff"/>
-            <stop offset=".45" stop-color="#8ff3ff"/>
-            <stop offset="1"   stop-color="#0891b2"/>
-          </radialGradient>
-        </defs>
-        <polygon points="8,6 112,6 60,68" fill="#04222b" stroke="#22d3ee" stroke-width="3" stroke-linejoin="round"/>
-        <polygon points="24,14 96,14 60,54" fill="url(#hudCore)" stroke="#a5f3fc" stroke-width="1.5" stroke-linejoin="round"/>
+        <!-- frame shapes (ek bar define, kono jaygay reuse) -->
+        <polygon id="outer" points="441.5,18 395,18 378,36 325,36 282,80 228,80 220,68 112,66 36,169 12,204 8,230 44,345 94,450 132,522 145,578 168,586 218,672 232,683 384,681 405,686 441.5,687 478,686 499,681 651,683 665,672 715,586 738,578 751,522 789,450 839,345 875,230 871,204 847,169 771,66 663,68 655,80 601,80 558,36 505,36 488,18"/>
+        <polygon id="panel" points="441.5,151 146,151 140,153 58,280 60,291 157,445 160,545 280,648 441.5,648 603,648 723,545 726,445 823,291 825,280 743,153 737,151"/>
+
+        <!-- ===== left half (mirrored to make the right half) ===== -->
+        <g id="half">
+          <!-- shoulder band -->
+          <polygon points="112,66 148,66 72,180 72,206 44,250 30,215 36,169" fill="#0a4356" opacity=".6"/>
+          <polyline points="148,70 72,181 72,204 46,246" fill="none" stroke="#3fc6df" stroke-width="2" opacity=".75"/>
+          <polyline points="112,66 150,66" fill="none" stroke="#67dcf0" stroke-width="2.5"/>
+          <!-- LED -->
+          <polygon points="51,186 68,193 77,210 73,229 57,241 39,238 27,224 26,205 36,192" fill="#0a2f3b" stroke="#2aa9c4" stroke-width="1.6"/>
+          <circle cx="51" cy="215" r="22" fill="none" stroke="#2cb6d2" stroke-width="1.5" opacity=".8"/>
+          <circle cx="51" cy="215" r="17" fill="#22d3ee" opacity=".6" filter="url(#glowS)"/>
+          <circle cx="51" cy="215" r="14" fill="url(#ledGrad)"/>
+          <!-- pod -->
+          <polygon points="152,68 218,68 238,97 218,125 152,125 130,97" fill="#08303d" stroke="#5cc9de" stroke-width="2.6"/>
+          <polygon points="158,78 212,78 228,97 212,116 158,116 142,97" fill="none" stroke="#1d8ea8" stroke-width="2"/>
+          <polygon points="160,98 171,86 195,86 206,98 195,111 171,111" fill="#22d3ee" opacity=".7" filter="url(#glowS)"/>
+          <polygon points="165,98 173,89 193,89 201,98 193,108 173,108" fill="#7cf2ff"/>
+          <polygon points="152,126 218,126 214,131 156,131" fill="#22d3ee" opacity=".7"/>
+          <!-- rails -->
+          <polygon points="236,80 322,80 334,104 250,104" fill="#0f4a5c" stroke="#4fbfd6" stroke-width="1.6"/>
+          <line x1="252" y1="122" x2="372" y2="122" stroke="#2aa9c4" stroke-width="1.6" opacity=".75"/>
+          <polygon points="247,120 266,120 252,141 230,139" fill="#22d3ee" filter="url(#glowXS)"/>
+          <polygon points="247,120 266,120 252,141 230,139" fill="#5fe9ff"/>
+          <polyline points="283,79 325,37 346,37" fill="none" stroke="#3fb8d0" stroke-width="3"/>
+          <polyline points="283,72 322,33" fill="none" stroke="#2c8ba2" stroke-width="1.6" opacity=".7"/>
+          <!-- side bar upper -->
+          <polygon points="43,347 66,330 152,458 128,470" fill="#0a3746" stroke="#3fb8d0" stroke-width="1.6"/>
+          <polygon points="55,347 79,336 141,442 115,456" fill="url(#barFill)"/>
+          <polygon points="55,347 79,336 141,442 115,456" fill="#22d3ee" opacity=".7" filter="url(#glowS)"/>
+          <!-- side bar lower -->
+          <polygon points="172,580 216,580 288,668 250,672" fill="#0a3746" stroke="#3fb8d0" stroke-width="1.6"/>
+          <polygon points="187,586 208,586 272,658 250,666" fill="url(#barFill)"/>
+          <polygon points="187,586 208,586 272,658 250,666" fill="#22d3ee" opacity=".5" filter="url(#glowXS)"/>
+          <polyline points="259,648 358,648 372,675" fill="none" stroke="#2c96b0" stroke-width="1.8" opacity=".8"/>
+          <polyline points="232,675 384,675" fill="none" stroke="#3fb8d0" stroke-width="2"/>
+        </g>
+        <g id="halfTop">
+          <!-- red chevron -->
+          <polyline points="97,270 85,290 94,307" fill="none" stroke="#ff5a2a" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" opacity=".55" filter="url(#glowXS)"/>
+          <polyline points="97,270 85,290 94,307" fill="none" stroke="#ff8258" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- faint deco lines inside panel -->
+          <line x1="132" y1="212" x2="222" y2="212" stroke="#2aa9c4" stroke-width="1" opacity=".35"/>
+          <polyline points="118,236 128,232 232,232" fill="none" stroke="#2aa9c4" stroke-width="1.2" opacity=".35"/>
+        </g>
+      </defs>
+
+      <!-- outer glow -->
+      <use xlink:href="#outer" fill="none" stroke="#22d3ee" stroke-width="6" opacity=".28" filter="url(#glow)"/>
+      <!-- frame body -->
+      <use xlink:href="#outer" fill="url(#frameFill)" stroke="url(#edge)" stroke-width="2.4" stroke-linejoin="round"/>
+      <use xlink:href="#outer" fill="none" stroke="#2296b0" stroke-width="1.3" opacity=".4" transform="translate(12.362 13.376) scale(.972 .962)"/>
+
+      <use xlink:href="#half"/>
+      <use xlink:href="#half" transform="translate(883 0) scale(-1 1)"/>
+
+      <!-- bevel ring around panel -->
+      <use xlink:href="#panel" fill="none" stroke="#0e5468" stroke-width="9" opacity=".55" stroke-linejoin="round"/>
+      <!-- inner panel -->
+      <use xlink:href="#panel" fill="#020a0f" stroke="#38c9e4" stroke-width="2.2" stroke-linejoin="round"/>
+      <use xlink:href="#panel" fill="url(#panelGlow)" stroke="none"/>
+      <use xlink:href="#panel" fill="none" stroke="#38c9e4" stroke-width="1" opacity=".25" transform="translate(26.49 40) scale(.94 .9)"/>
+
+      <use xlink:href="#halfTop"/>
+      <use xlink:href="#halfTop" transform="translate(883 0) scale(-1 1)"/>
+
+      <!-- ===== ARC REACTOR ===== -->
+        <g transform="translate(220.8 9) scale(.5)">
+        <polygon points="343,66 540,66 442,178" fill="#22d3ee" opacity=".28" filter="url(#glow)"/>
+        <polygon points="395,21 488,21 538,68 543,77 480,172 413,172 343,78 344,68" fill="#0a2a35" stroke="#74d0e2" stroke-width="4" stroke-linejoin="round"/>
+        <polygon points="372,60 511,60 532,76 472,168 412,168 352,76" fill="#061a22" stroke="#2c93ab" stroke-width="2.2" stroke-linejoin="round"/>
+        <polygon points="416,46 468,46 474,52 410,52" fill="#5fe9ff" filter="url(#glowXS)"/>
+        <polygon points="416,46 468,46 474,52 410,52" fill="#a8f6ff"/>
+        <polygon points="378,67 506,67 442,166" fill="#22d3ee" opacity=".9" filter="url(#glow)"/>
+        <polygon points="378,67 404,67 412,75 472,75 480,67 506,67 442,166" fill="url(#coreGrad)"/>
+        <polyline points="367,85 397,132" fill="none" stroke="#3fe0f8" stroke-width="9" stroke-linecap="round" opacity=".85"/>
+        <polyline points="517,85 487,132" fill="none" stroke="#3fe0f8" stroke-width="9" stroke-linecap="round" opacity=".85"/>
+        <polyline points="412,142 418,160" fill="none" stroke="#3fe0f8" stroke-width="7" stroke-linecap="round" opacity=".8"/>
+        <polyline points="472,142 466,160" fill="none" stroke="#3fe0f8" stroke-width="7" stroke-linecap="round" opacity=".8"/>
+        <polyline points="418,172 430,182 453,182 465,172" fill="none" stroke="#6ac6d8" stroke-width="3"/>
+      </g>
+
+      <!-- labels -->
+      <g fill="#7fa3ad" opacity=".55" font-size="12.5" letter-spacing="3.6">
+        <text x="151" y="184">STARK</text><text x="151" y="201">SYSTEMS</text>
+        <text x="733" y="184" text-anchor="end">BETTER</text><text x="733" y="201" text-anchor="end">HUMANS</text><text x="733" y="218" text-anchor="end">DAILY</text>
+      </g>
+
+      <!-- ===== WATER RING ===== -->
+      <g transform="translate(441.5 268)">
+        <circle r="97" fill="none" stroke="#6c8f99" stroke-width="2" stroke-dasharray="3 7" opacity=".3"/>
+        <circle r="68" fill="none" stroke="#22d3ee" stroke-width="1" opacity=".3"/>
+        <g fill="none" stroke="#22d3ee" stroke-width="8" opacity=".75" filter="url(#glowS)"><path d="M 7.9 -75.6 A 76 76 0 0 1 39.1 -65.1"/><path d="M 49.9 -57.4 A 76 76 0 1 1 -49.9 -57.4"/><path d="M -39.1 -65.1 A 76 76 0 0 1 -7.9 -75.6"/></g>
+        <g fill="none" stroke="#38e0f8" stroke-width="4.4"><path d="M 7.9 -75.6 A 76 76 0 0 1 39.1 -65.1"/><path d="M 49.9 -57.4 A 76 76 0 1 1 -49.9 -57.4"/><path d="M -39.1 -65.1 A 76 76 0 0 1 -7.9 -75.6"/></g>
+        <path d="M0 -40 C0 -40 -26 -6 -26 14 a26 26 0 0 0 52 0 C26 -6 0 -40 0 -40 Z" fill="#22d3ee" opacity=".6" filter="url(#glowS)"/>
+        <path d="M0 -40 C0 -40 -26 -6 -26 14 a26 26 0 0 0 52 0 C26 -6 0 -40 0 -40 Z" fill="url(#dropGrad)"/>
+        <path d="M-12 14 C-12 5 -8 -3 -4 -10" fill="none" stroke="#fff" stroke-opacity=".75" stroke-width="3" stroke-linecap="round"/>
+      </g>
+
+      <!-- ===== TEXT ===== -->
+      <text x="441.5" y="380" text-anchor="middle" font-size="33" font-weight="700" fill="#8beafd" textLength="503" lengthAdjust="spacingAndGlyphs" filter="url(#glowXS)" opacity=".7">HYDRATION LEVELS ARE LOW.</text>
+      <text x="441.5" y="380" text-anchor="middle" font-size="33" font-weight="700" fill="#8beafd" textLength="503" lengthAdjust="spacingAndGlyphs">HYDRATION LEVELS ARE LOW.</text>
+      <text x="441.5" y="421" text-anchor="middle" font-size="28" fill="#a3b9c0" textLength="249" lengthAdjust="spacingAndGlyphs">Drink some water.</text>
+
+      <!-- ===== BUTTONS ===== -->
+      <g>
+        <polygon points="171,450 419,450 435,466 435,527 419,543 171,543 155,527 155,466" fill="none" stroke="#4fd6ee" stroke-width="1.6" opacity=".7"/>
+        <polygon points="171,454 419,454 431,466 431,527 419,539 171,539 159,527 159,466" fill="#22d3ee" opacity=".85" filter="url(#glowS)"/>
+        <polygon points="171,454 419,454 431,466 431,527 419,539 171,539 159,527 159,466" fill="url(#btnFill)" stroke="#c6fbff" stroke-width="2"/>
+        <polygon points="172,460 418,460 425,467 425,526 418,533 172,533 165,526 165,467" fill="none" stroke="#e8feff" stroke-width="1" opacity=".55"/>
+        <path d="M222 481 C222 481 210 497 210 505 a12 12 0 0 0 24 0 C234 497 222 481 222 481 Z" fill="#052c38" transform="translate(6 -2)"/>
+        <text x="265" y="511" font-size="31" font-weight="700" fill="#052c38" textLength="112" lengthAdjust="spacingAndGlyphs">I DRANK</text>
+      </g>
+      <g>
+        <polygon points="464,457 708,457 720,469 720,524 708,536 464,536 452,524 452,469" fill="#061419" stroke="#8fc9d6" stroke-opacity=".5" stroke-width="2"/>
+        <polygon points="466,462 706,462 714,470 714,523 706,531 466,531 458,523 458,470" fill="none" stroke="#8fc9d6" stroke-opacity=".18" stroke-width="1"/>
+        <g transform="translate(490 483)" fill="none" stroke="#cfeaf0" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M0 0H22M0 30H22M3 0V7L11 15L3 23V30M19 0V7L11 15L19 23V30"/>
+        </g>
+        <text x="532" y="507" font-size="28" font-weight="600" fill="#d3eef4" textLength="146" lengthAdjust="spacingAndGlyphs">SNOOZE 5m</text>
+      </g>
+
+      <!-- ===== FOOTER ===== -->
+      <g stroke="#6aa9b8" stroke-opacity=".35" stroke-width="1.2"><line x1="276" y1="602" x2="311" y2="602"/><line x1="572" y1="602" x2="606" y2="602"/></g>
+      <text x="441.5" y="607" text-anchor="middle" font-size="13.5" fill="#6aa9b8" opacity=".6" textLength="238" lengthAdjust="spacing">FUEL A BRIGHTER YOU</text>
+
+      <!-- ===== BOTTOM TAB ===== -->
+      <polygon points="377,631 506,631 476,687 407,687" fill="#0a3140" stroke="#4fc0d8" stroke-width="2.4" stroke-linejoin="round"/>
+      <polygon points="392,638 491,638 470,678 413,678" fill="#04141b" stroke="#1f7d94" stroke-width="1.2"/>
+      <g fill="#5cecff"><rect x="425" y="645" width="4.5" height="22" rx="2"/><rect x="439.5" y="645" width="4.5" height="22" rx="2"/><rect x="454" y="645" width="4.5" height="22" rx="2"/></g>
+      <g fill="#22d3ee" opacity="1" filter="url(#glowS)"><rect x="425" y="645" width="4.5" height="22"/><rect x="439.5" y="645" width="4.5" height="22"/><rect x="454" y="645" width="4.5" height="22"/></g>
       </svg>
 
-      <div class="hud-pod hud-pod--l"></div>
-      <div class="hud-pod hud-pod--r"></div>
-      <div class="hud-led hud-led--l"></div>
-      <div class="hud-led hud-led--r"></div>
-      <div class="hud-bar hud-bar--l"></div>
-      <div class="hud-bar hud-bar--r"></div>
-      <div class="hud-chev hud-chev--l"></div>
-      <div class="hud-chev hud-chev--r"></div>
-
-      <div class="hud-tag hud-tag--l">Stark<br>Systems</div>
-      <div class="hud-tag hud-tag--r">Better<br>Humans<br>Daily</div>
-
-      <div class="hud-body">
-        <svg class="hud-ring" viewBox="0 0 100 100" aria-hidden="true">
-          <defs>
-            <linearGradient id="hudDrop" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#a5f3fc"/>
-              <stop offset="1" stop-color="#06b6d4"/>
-            </linearGradient>
-          </defs>
-          <circle cx="50" cy="50" r="38" fill="none" stroke="rgba(34,211,238,.3)" stroke-width="1"/>
-          <circle class="hud-ring-dash" cx="50" cy="50" r="46" fill="none" stroke="#22d3ee" stroke-width="2.5"
-                  stroke-linecap="round" stroke-dasharray="82 9 42 9 82 9 42 9"/>
-          <g class="hud-drop">
-            <path d="M50 24 C50 24 33 44 33 58 a17 17 0 0 0 34 0 C67 44 50 24 50 24 Z" fill="url(#hudDrop)"/>
-            <path d="M43 54 C43 50 46 46 48 43" fill="none" stroke="#ffffff" stroke-opacity=".7" stroke-width="2.2" stroke-linecap="round"/>
-          </g>
-        </svg>
-
-        <div class="title" id="hud-title">Hydration levels are low.</div>
-        <div class="message">Drink some water.</div>
-
-        <div class="actions">
-          <button class="drank" id="drankBtn" type="button">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5C12 2.5 5 10.5 5 15a7 7 0 0 0 14 0c0-4.5-7-12.5-7-12.5z" fill="currentColor"/></svg>
-            I drank
-          </button>
-          <button class="snooze" id="snoozeBtn" type="button">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12M6 21h12M7 3v4l5 5-5 5v4M17 3v4l-5 5 5 5v4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Snooze 5m
-          </button>
-        </div>
-
-        <div class="hud-foot">Fuel a brighter you</div>
-      </div>
-
-      <div class="hud-tab"><i></i><i></i><i></i></div>
+      <button class="hit hit-drank"  id="drankBtn"  type="button" aria-label="I drank"></button>
+      <button class="hit hit-snooze" id="snoozeBtn" type="button" aria-label="Snooze 5 minutes"></button>
     </div>
 
   </div>
