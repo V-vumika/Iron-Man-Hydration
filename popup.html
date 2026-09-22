@@ -38,7 +38,7 @@
     -webkit-app-region: no-drag;
     pointer-events: none;
     filter: drop-shadow(0 0 18px rgba(255, 60, 0, 0.35));
-  
+    animation: hero-rise 1.8s cubic-bezier(.16, .84, .44, 1) both;
   }
 
   /* ---------- STARK HUD CARD (pure SVG + CSS) ---------- */
@@ -51,7 +51,8 @@
     z-index: 2;
     user-select: none;
     -webkit-app-region: no-drag;
-    animation: hud-in .4s cubic-bezier(.2, .8, .2, 1) both;
+    opacity: 0;
+    animation: hud-in .4s cubic-bezier(.2, .8, .2, 1) 1.4s both;
   }
 
   .card-art {
@@ -84,8 +85,12 @@
     from { opacity: 0; transform: translateX(14px) scale(.96); }
     to   { opacity: 1; transform: none; }
   }
+  @keyframes hero-rise {
+    from { transform: translateY(260px); opacity: 0; }
+    to   { transform: translateY(0); opacity: 1; }
+  }
   @media (prefers-reduced-motion: reduce) {
-    .card { animation: none; }
+    .card, .hero-image { animation: none; }
   }
 </style>
 </head>
