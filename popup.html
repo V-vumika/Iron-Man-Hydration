@@ -38,14 +38,15 @@
     -webkit-app-region: no-drag;
     pointer-events: none;
     filter: drop-shadow(0 0 18px rgba(255, 60, 0, 0.35));
+  
   }
 
   /* ---------- STARK HUD CARD (pure SVG + CSS) ---------- */
   .card {
     position: absolute;
-    right: 270px;            /* image theke duratto */
+    right: 250px;            /* image theke duratto */
     bottom: 190px;           /* haat er height */
-    width: 400px;            /* height auto: aspect ratio thik thake */
+    width: 300px;            /* height auto: aspect ratio thik thake */
     aspect-ratio: 883 / 701;
     z-index: 2;
     user-select: none;
@@ -121,9 +122,9 @@
         <radialGradient id="panelGlow" gradientUnits="userSpaceOnUse" cx="441.5" cy="300" r="240">
           <stop offset="0" stop-color="#0fb0d0" stop-opacity=".22"/><stop offset="1" stop-color="#1aa3c0" stop-opacity="0"/>
         </radialGradient>
-        <filter id="glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="7"/></filter>
-        <filter id="glowS" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3"/></filter>
-        <filter id="glowXS" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="1.6"/></filter>
+        <filter id="glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="13"/></filter>
+        <filter id="glowS" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5.5"/></filter>
+        <filter id="glowXS" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.6"/></filter>
 
         <!-- frame shapes (ek bar define, kono jaygay reuse) -->
         <polygon id="outer" points="441.5,18 395,18 378,36 325,36 282,80 228,80 220,68 112,66 36,169 12,204 8,230 44,345 94,450 132,522 145,578 168,586 218,672 232,683 384,681 405,686 441.5,687 478,686 499,681 651,683 665,672 715,586 738,578 751,522 789,450 839,345 875,230 871,204 847,169 771,66 663,68 655,80 601,80 558,36 505,36 488,18"/>
@@ -135,29 +136,29 @@
           <polygon points="112,66 148,66 72,180 72,206 44,250 30,215 36,169" fill="#0a4356" opacity=".6"/>
           <polyline points="148,70 72,181 72,204 46,246" fill="none" stroke="#3fc6df" stroke-width="2" opacity=".75"/>
           <polyline points="112,66 150,66" fill="none" stroke="#67dcf0" stroke-width="2.5"/>
-          <!-- LED -->
+          <!-- Left LED -->
           <polygon points="51,186 68,193 77,210 73,229 57,241 39,238 27,224 26,205 36,192" fill="#0a2f3b" stroke="#2aa9c4" stroke-width="1.6"/>
           <circle cx="51" cy="215" r="22" fill="none" stroke="#2cb6d2" stroke-width="1.5" opacity=".8"/>
           <circle cx="51" cy="215" r="17" fill="#22d3ee" opacity=".6" filter="url(#glowS)"/>
           <circle cx="51" cy="215" r="14" fill="url(#ledGrad)"/>
-          <!-- pod -->
+          <!-- Hexagonal Accent Pod -->
           <polygon points="152,68 218,68 238,97 218,125 152,125 130,97" fill="#08303d" stroke="#5cc9de" stroke-width="2.6"/>
           <polygon points="158,78 212,78 228,97 212,116 158,116 142,97" fill="none" stroke="#1d8ea8" stroke-width="2"/>
           <polygon points="160,98 171,86 195,86 206,98 195,111 171,111" fill="#22d3ee" opacity=".7" filter="url(#glowS)"/>
           <polygon points="165,98 173,89 193,89 201,98 193,108 173,108" fill="#7cf2ff"/>
           <polygon points="152,126 218,126 214,131 156,131" fill="#22d3ee" opacity=".7"/>
-          <!-- rails -->
+          <!-- Decorative Rails -->
           <polygon points="236,80 322,80 334,104 250,104" fill="#0f4a5c" stroke="#4fbfd6" stroke-width="1.6"/>
           <line x1="252" y1="122" x2="372" y2="122" stroke="#2aa9c4" stroke-width="1.6" opacity=".75"/>
           <polygon points="247,120 266,120 252,141 230,139" fill="#22d3ee" filter="url(#glowXS)"/>
           <polygon points="247,120 266,120 252,141 230,139" fill="#5fe9ff"/>
           <polyline points="283,79 325,37 346,37" fill="none" stroke="#3fb8d0" stroke-width="3"/>
           <polyline points="283,72 322,33" fill="none" stroke="#2c8ba2" stroke-width="1.6" opacity=".7"/>
-          <!-- side bar upper -->
+          <!-- Upper side light bar -->
           <polygon points="43,347 66,330 152,458 128,470" fill="#0a3746" stroke="#3fb8d0" stroke-width="1.6"/>
           <polygon points="55,347 79,336 141,442 115,456" fill="url(#barFill)"/>
           <polygon points="55,347 79,336 141,442 115,456" fill="#22d3ee" opacity=".7" filter="url(#glowS)"/>
-          <!-- side bar lower -->
+          <!-- lower side light bar -->
           <polygon points="172,580 216,580 288,668 250,672" fill="#0a3746" stroke="#3fb8d0" stroke-width="1.6"/>
           <polygon points="187,586 208,586 272,658 250,666" fill="url(#barFill)"/>
           <polygon points="187,586 208,586 272,658 250,666" fill="#22d3ee" opacity=".5" filter="url(#glowXS)"/>
@@ -175,7 +176,7 @@
       </defs>
 
       <!-- outer glow -->
-      <use xlink:href="#outer" fill="none" stroke="#22d3ee" stroke-width="6" opacity=".28" filter="url(#glow)"/>
+      <use xlink:href="#outer" fill="none" stroke="#22d3ee" stroke-width="9" opacity=".55" filter="url(#glow)"/>
       <!-- frame body -->
       <use xlink:href="#outer" fill="url(#frameFill)" stroke="url(#edge)" stroke-width="2.4" stroke-linejoin="round"/>
       <use xlink:href="#outer" fill="none" stroke="#2296b0" stroke-width="1.3" opacity=".4" transform="translate(12.362 13.376) scale(.972 .962)"/>
