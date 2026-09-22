@@ -63,6 +63,13 @@
     pointer-events: none;
   }
 
+  /* glow-wala shape gulo jekono background e thik dekhabe */
+  .card [filter="url(#glow)"],
+  .card [filter="url(#glowS)"],
+  .card [filter="url(#glowXS)"] {
+    mix-blend-mode: screen;
+  }
+
   /* SVG er button gulor upor invisible click area */
   .hit {
     position: absolute;
@@ -100,11 +107,13 @@
 
     <img class="hero-image" src="./assets/ironmain.png" alt="Iron Man">
 
+    <!-- STARK HUD CARD -->
     <div class="card" role="alertdialog" aria-label="Hydration levels are low. Drink some water.">
+
       <svg class="card-art" aria-hidden="true" viewBox="0 0 883 701" font-family="Bahnschrift, Rajdhani, 'Segoe UI', sans-serif">
       <defs>
         <linearGradient id="frameFill" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#05212b"/><stop offset=".5" stop-color="#030f15"/><stop offset="1" stop-color="#020b10"/>
+          <stop offset="0" stop-color="#04181f"/><stop offset=".5" stop-color="#020a0e"/><stop offset="1" stop-color="#01070a"/>
         </linearGradient>
         <linearGradient id="edge" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stop-color="#3fb9d4"/><stop offset=".5" stop-color="#157f97"/><stop offset="1" stop-color="#2fa8c2"/>
@@ -183,7 +192,7 @@
       <!-- outer glow -->
       <use xlink:href="#outer" fill="none" stroke="#22d3ee" stroke-width="9" opacity=".55" filter="url(#glow)"/>
       <!-- frame body -->
-      <use xlink:href="#outer" fill="url(#frameFill)" stroke="url(#edge)" stroke-width="2.4" stroke-linejoin="round"/>
+      <use xlink:href="#outer" fill="url(#frameFill)" stroke="url(#edge)" stroke-width="2.1" stroke-linejoin="round"/>
       <use xlink:href="#outer" fill="none" stroke="#2296b0" stroke-width="1.3" opacity=".4" transform="translate(12.362 13.376) scale(.972 .962)"/>
 
       <use xlink:href="#half"/>
@@ -200,7 +209,7 @@
       <use xlink:href="#halfTop" transform="translate(883 0) scale(-1 1)"/>
 
       <!-- ===== ARC REACTOR ===== -->
-        <g transform="translate(220.8 9) scale(.5)">
+      <g transform="translate(154.5 6.3) scale(.65)">
         <polygon points="343,66 540,66 442,178" fill="#22d3ee" opacity=".28" filter="url(#glow)"/>
         <polygon points="395,21 488,21 538,68 543,77 480,172 413,172 343,78 344,68" fill="#0a2a35" stroke="#74d0e2" stroke-width="4" stroke-linejoin="round"/>
         <polygon points="372,60 511,60 532,76 472,168 412,168 352,76" fill="#061a22" stroke="#2c93ab" stroke-width="2.2" stroke-linejoin="round"/>
