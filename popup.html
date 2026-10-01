@@ -52,7 +52,9 @@
   -webkit-app-region: no-drag;
   opacity: 1 !important;
   visibility: visible !important;
+  animation: settings-rise 1.8s cubic-bezier(.16, .84, .44, 1) both;
 }
+
 
 .settings-btn svg {
   width: 14px;
@@ -60,7 +62,7 @@
   display: block;
 }
 
-  /* WRAPPER — window (820x560) er sathe match */
+  /* WRAPPER */
   .widget-wrapper {
     position: fixed;
     inset: 0;
@@ -83,12 +85,12 @@
     animation: hero-rise 1.8s cubic-bezier(.16, .84, .44, 1) both;
   }
 
-  /* ---------- STARK HUD CARD (pure SVG + CSS) ---------- */
+  /* STARK HUD CARD */
   .card {
     position: absolute;
-    right: 250px;            /* image theke duratto */
-    bottom: 190px;           /* haat er height */
-    width: 300px;            /* height auto: aspect ratio thik thake */
+    right: 250px;            /* image distance */
+    bottom: 190px;           /* hand distance */
+    width: 300px;            /* height ratio */
     aspect-ratio: 883 / 701;
     z-index: 2;
     user-select: none;
@@ -105,14 +107,14 @@
     pointer-events: none;
   }
 
-  /* glow-wala shape gulo jekono background e thik dekhabe */
+  /* Make the card glow visible on any background */
   .card [filter="url(#glow)"],
   .card [filter="url(#glowS)"],
   .card [filter="url(#glowXS)"] {
     mix-blend-mode: screen;
   }
 
-  /* SVG er button gulor upor invisible click area */
+  /* Invisible click areas over the SVG buttons */
   .hit {
     position: absolute;
     padding: 0;
@@ -135,6 +137,10 @@
     to   { opacity: 1; transform: none; }
   }
   @keyframes hero-rise {
+    from { transform: translateY(260px); opacity: 0; }
+    to   { transform: translateY(0); opacity: 1; }
+  }
+  @keyframes settings-rise {
     from { transform: translateY(260px); opacity: 0; }
     to   { transform: translateY(0); opacity: 1; }
   }
@@ -189,11 +195,11 @@
         <filter id="glowS" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5.5"/></filter>
         <filter id="glowXS" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.6"/></filter>
 
-        <!-- frame shapes (ek bar define, kono jaygay reuse) -->
+        <!-- Frame shapes (defined once and reused throughout the SVG) -->
         <polygon id="outer" points="441.5,18 395,18 378,36 325,36 282,80 228,80 220,68 112,66 36,169 12,204 8,230 44,345 94,450 132,522 145,578 168,586 218,672 232,683 384,681 405,686 441.5,687 478,686 499,681 651,683 665,672 715,586 738,578 751,522 789,450 839,345 875,230 871,204 847,169 771,66 663,68 655,80 601,80 558,36 505,36 488,18"/>
         <polygon id="panel" points="441.5,151 146,151 140,153 58,280 60,291 157,445 160,545 280,648 441.5,648 603,648 723,545 726,445 823,291 825,280 743,153 737,151"/>
 
-        <!-- ===== left half (mirrored to make the right half) ===== -->
+       <!-- Left half (mirrored to create the right half) -->
         <g id="half">
           <!-- shoulder band -->
           <polygon points="112,66 148,66 72,180 72,206 44,250 30,215 36,169" fill="#0a4356" opacity=".6"/>

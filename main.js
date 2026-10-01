@@ -12,11 +12,11 @@ const DEFAULT_REMINDER_MINUTES = 30;
 const SETTINGS_PATH = path.join(app.getPath('userData'), 'settings.json');
 let reminderMinutes = DEFAULT_REMINDER_MINUTES;
 
-// Window size — popup.html er layout ei size er upor base kora
+// Window size — matches the popup.html layout
 const WIN_WIDTH = 820;
 const WIN_HEIGHT = 560;
 
-let activeTimer = null; // ekmatro active reminder timer — DRANK ba SNOOZE, dutai ei ekta variable use kore
+let activeTimer = null; // Stores the single active reminder timer used by both DRANK and SNOOZE
 
 
 // ---- Settings persistence ----
@@ -28,7 +28,7 @@ function loadSettings() {
       reminderMinutes = data.reminderMinutes;
     }
   } catch (err) {
-    // file nei ba corrupt — default (30) e thakbe
+   // File is missing or corrupted — keep the default value (30)
   }
 }
 
@@ -45,7 +45,7 @@ function getReminderMs() {
 }
 
 
-// ---- Single-timer scheduler (duita timer kokhono ekshathe chalbe na) ----
+// ---- Single-timer scheduler (prevents multiple timers from running) ----
 function clearActiveTimer() {
   if (activeTimer) {
     clearTimeout(activeTimer);
@@ -54,7 +54,7 @@ function clearActiveTimer() {
 }
 
 function scheduleNextReminder(ms) {
-  clearActiveTimer(); // notun timer shuru korar age purono ta bondho
+  clearActiveTimer(); // Stop the previous timer before starting a new one
   activeTimer = setTimeout(() => {
     activeTimer = null;
     createPopup();
