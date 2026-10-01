@@ -1,32 +1,59 @@
-# Iron Man Hydration Reminder
+## Iron Man Hydration
 
-Electron desktop app — a J.A.R.V.I.S.-styled popup that reminds you to drink water every 30 minutes.
+A futuristic desktop hydration reminder built with Electron, JavaScript, HTML, and CSS.
 
-## Setup
+The application combines a lightweight hydration reminder system with an Iron Man-inspired HUD interface, animated visuals, interactive controls, and persistent user settings.
 
-```bash
-npm install
-npm start
-```
+## Features
 
-## How it works
+Iron Man-inspired futuristic HUD interface
+Custom hydration reminder interval
+Interactive "I DRANK" action
+5-minute snooze functionality
+Settings panel for reminder configuration
+Persistent reminder settings
+Animated Iron Man entrance
+Animated HUD card
+Neon cyan glow effects
+SVG-based HUD graphics
+Transparent desktop popup
+Lightweight Electron desktop application
 
-- `main.js` — creates a frameless, always-on-top popup window on a timer (`REMINDER_INTERVAL_MS`, default 30 min).
-- `popup.html` — the Iron Man / J.A.R.V.I.S. themed reminder card (red/gold, arc-reactor glow).
-- `preload.js` — securely exposes two actions to the popup: **Drank it** (closes popup) and **Snooze 5m** (closes and reopens in 5 min).
 
-## Customize
+## How It Works
 
-- Change `REMINDER_INTERVAL_MS` in `main.js` to adjust how often it pops up.
-- For quick testing, run with `NODE_ENV=development npm start` — it'll pop up every 15 seconds instead of 30 minutes.
-- Swap the message text or colors in `popup.html` to tweak the vibe.
-- Want a real Iron Man/arc-reactor image instead of the CSS glow? Drop a PNG into `assets/` and reference it with an `<img>` tag in `popup.html`.
+The application runs a reminder timer in the background.
+When the configured reminder interval is reached, a desktop popup appears with the Iron Man-inspired hydration HUD.
 
-## Packaging as a standalone app (optional)
+The user can then:
+Confirm that they drank water using the "I DRANK" button
+Snooze the reminder for 5 minutes
+Open Settings and change the reminder interval
+The selected reminder interval is stored locally and loaded when the application starts again.
 
-To turn this into a distributable `.exe` / `.app` later:
+##  Tech Stack
 
-```bash
-npm install --save-dev electron-builder
-npx electron-builder
-```
+Electron
+JavaScript
+HTML5
+CSS3
+SVG
+Node.js
+
+
+## Project Structure
+
+iron-man-hydration/  
+│  
+├── assets/  
+│   └── ironmain.png  
+│  
+├── node_modules/  
+├── .gitignore  
+├── main.js  
+├── preload.js  
+├── popup.html  
+├── settings.html  
+├── package.json  
+├── package-lock.json  
+└── README.md
