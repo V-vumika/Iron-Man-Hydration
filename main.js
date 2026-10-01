@@ -167,6 +167,9 @@ ipcMain.on('hydration:drank', () => {
   if (popup && !popup.isDestroyed()) {
     popup.close();
   }
+  if (settingsWin && !settingsWin.isDestroyed()) {
+    settingsWin.close();
+  }
   scheduleNextReminder(getReminderMs());
 });
 

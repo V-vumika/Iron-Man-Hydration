@@ -143,7 +143,7 @@
 
   <script>
     const MIN = 5;
-    const MAX = 60; // 60 er por abar 5 e wrap kore
+    const MAX = 60; 
     let minutes = 30;
 
     const valueDisplay = document.getElementById('valueDisplay');
@@ -168,7 +168,7 @@
 
     document.getElementById('saveBtn').addEventListener('click', () => {
       window.hydration.saveSettings(minutes).then(() => {
-        savedNote.classList.add('show');
+        window.hydration.closeSettings();
       });
     });
 
